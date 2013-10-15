@@ -5,19 +5,22 @@ set :sessions, true
 
 get '/' do
   if session[:player_name]
-    # do something
+    # do something else
+    redirect '/start_game'
   else
-    redirect '/new_game'
+    redirect '/new_player'
   end
 end
 
-get '/new_game' do
-  erb :new_game
+get '/new_player' do
+  erb :new_player
 end
 
-
-post '/start_game' do
+post '/new_player' do
   session[:player_name]=params[:player_name]
-  @player_name = session[:player_name]
+  redirect '/start_game'
+end
+
+get '/start_game' do
   erb :start_game
 end
