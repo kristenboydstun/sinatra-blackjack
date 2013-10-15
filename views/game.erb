@@ -1,7 +1,11 @@
 <%= "Welcome " + session[:player_name] %>
 
 <h3>Here is your hand:</h3>
-<%= session[:player_hand] %>
+<% session[:player_hand].each do |card| %>
+	<%= card[0] + " of " + card[1] + "\n" %>
+<% end %>
 
 <h3>Here is the dealer's hand:</h3>
-<%= session[:dealer_hand] %>
+<% session[:dealer_hand].each do |card| %>
+	<%= card[0] + " of " + card[1] + "\n" %>
+<% end %>
