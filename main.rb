@@ -59,12 +59,12 @@ get '/game' do
   erb :game
 end
 
-get '/hit' do
+post '/hit' do
   session[:player_hand]<<session[:deck].pop
   redirect '/game'
 end
 
-get '/stay' do
+post '/stay' do
   # deal cards for dealer
   redirect '/game_over'
 end
