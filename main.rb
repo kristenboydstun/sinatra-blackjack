@@ -8,9 +8,12 @@ helpers do
     valueDictionary = {"ace" => 11, "two" => 2, "three" => 3, "four" => 4, "five" => 5, "six" => 6, "seven" => 7, "eight" => 8, "nine" => 9, "ten" => 10, "jack" => 10, "queen" => 10, "king" => 10}
     total = 0
     aces = 0
-    cards.each do |card| 
-      total += valueDictionary["#{card[0]}"]
-      aces = aces + 1 if  card[0] == "ace"
+    
+    names = cards.map { |name, suit| name }
+
+    names.each do |name| 
+      total += valueDictionary["#{name}"]
+      aces = aces + 1 if name == "ace"
     end
     while total > 21 && aces > 0
       total = total - 10
