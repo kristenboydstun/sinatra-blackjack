@@ -3,10 +3,28 @@ require 'sinatra'
 
 set :sessions, true
 
+helpers do
+  def countCards cards
+    valueDictionary = {"ace" => 11, "two" => 2, "three" => 3, "four" => 4, "five" => 5, "six" => 6, "seven" => 7, "eight" => 8, "nine" => 9, "ten" => 10, "jack" => 10, "queen" => 10, "king" => 10}
+    total = 0
+    aces = 0
+    cards.each do |card| 
+      total += valueDictionary["#{card[0]}"]
+      aces = aces + 1 if  card[0] == "ace"
+    end
+    while total > 21 && aces > 0
+      total = total - 10
+      aces = aces - 1
+    end
+    total
+  end
+end
+
+
 get '/' do
   if session[:player_name]
     # do something else
-    redirect '/game'
+    redirect '/initialize'
   else
     redirect '/new_player'
   end
@@ -18,11 +36,10 @@ end
 
 post '/new_player' do
   session[:player_name]=params[:player_name]
-  redirect '/game'
+  redirect '/initialize'
 end
 
-get '/game' do
-  # set up initial vars
+get '/initialize' do
   suits = ["hearts","spades","diamonds","clubs"]
   types = ["ace", "two", "three", "four", "five", "six", "seven",
               "eight", "nine", "ten", "jack", "queen", "king"]
@@ -35,5 +52,24 @@ get '/game' do
   session[:player_hand]<<session[:deck].pop
   session[:player_hand]<<session[:deck].pop
 
+  redirect '/game'
+end
+
+get '/game' do
   erb :game
+end
+
+get '/hit' do
+  session[:player_hand]<<session[:deck].pop
+  redirect '/game'
+end
+
+get '/stay' do
+  # deal cards for dealer
+  redirect '/game_over'
+end
+
+get '/game_over' do
+  # deal cards for dealer
+  "Game over"
 end

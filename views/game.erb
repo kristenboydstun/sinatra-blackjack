@@ -5,7 +5,20 @@
 	<%= card[0] + " of " + card[1] + "\n" %>
 <% end %>
 
+<%= countCards(session[:player_hand]) %>
+
 <h3>Here is the dealer's hand:</h3>
 <% session[:dealer_hand].each do |card| %>
 	<%= card[0] + " of " + card[1] + "\n" %>
 <% end %>
+
+<form action="/hit" method="get">
+  <fieldset>
+    <button type="submit" class="btn">hit</button>
+  </fieldset>
+</form>
+<form action="/stay" method="get">
+  <fieldset>
+    <button type="submit" class="btn">stay</button>
+  </fieldset>
+</form>
