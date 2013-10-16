@@ -64,11 +64,20 @@ end
 
 post '/hit' do
   session[:player_hand]<<session[:deck].pop
-  redirect '/game'
+  if countCards(session[:player_hand]) < 21
+    redirect '/game'
+  else
+    redirect '/dealer_turn'
+  end
+  #session[:player_hand] < 21 ? redirect '/game' : redirect '/stay'
 end
 
 post '/stay' do
   # deal cards for dealer
+  redirect '/dealer_turn'
+end
+
+get '/dealer_turn' do
   redirect '/game_over'
 end
 
