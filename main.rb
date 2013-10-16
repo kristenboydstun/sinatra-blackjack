@@ -69,7 +69,7 @@ post '/hit' do
   else
     redirect '/dealer_turn'
   end
-  #session[:player_hand] < 21 ? redirect '/game' : redirect '/stay'
+  #countCards(session[:player_hand]) < 21 ? redirect '/game' : redirect '/dealer_turn'
 end
 
 post '/stay' do
