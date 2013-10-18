@@ -2,23 +2,34 @@
 
 <h3>Here is your hand:</h3>
 <% session[:player_hand].each do |card| %>
-	<%= card[0] + " of " + card[1] + "\n" %>
+  <%= card[0] + " of " + card[1] + "\n" %>
 <% end %>
 
 <%= countCards(session[:player_hand]) %>
 
-<h3>Here is the dealer's hand:</h3>
-<% session[:dealer_hand].each do |card| %>
-	<%= card[0] + " of " + card[1] + "\n" %>
+<% if session[:player_turn] %>
+  <form action="/hit" method="post">
+    <fieldset>
+      <button type="submit" class="btn">hit</button>
+    </fieldset>
+  </form>
+  <form action="/stay" method="post">
+    <fieldset>
+      <button type="submit" class="btn">stay</button>
+    </fieldset>
+  </form>
 <% end %>
 
-<form action="/hit" method="post">
-  <fieldset>
-    <button type="submit" class="btn">hit</button>
-  </fieldset>
-</form>
-<form action="/stay" method="post">
-  <fieldset>
-    <button type="submit" class="btn">stay</button>
-  </fieldset>
-</form>
+
+<h3>Here is the dealer's hand:</h3>
+<% session[:dealer_hand].each do |card| %>
+  <%= card[0] + " of " + card[1] + "\n" %>
+<% end %>
+
+<% if !session[:player_turn] && !session[:game_over] %>
+  <form action="/hit_dealer" method="post">
+    <fieldset>
+      <button type="submit" class="btn">hit</button>
+    </fieldset>
+  </form>
+<% end %>
