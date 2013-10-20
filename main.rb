@@ -21,6 +21,10 @@ helpers do
     end
     total
   end
+
+  def getImage card
+    
+  end
 end
 
 

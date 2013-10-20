@@ -1,35 +1,45 @@
-<%= "Welcome " + session[:player_name] %>
+<h2><%= "Dealer vs " + session[:player_name] %></h2>
 
-<h3>Here is your hand:</h3>
-<% session[:player_hand].each do |card| %>
-  <%= card[0] + " of " + card[1] + "\n" %>
-<% end %>
 
-<%= countCards(session[:player_hand]) %>
+<div class="well">
+  <h4>dealer's hand:</h4>
+  <% if session[:player_turn] %>
+    <p><%= session[:dealer_hand][0][0] + " of " + session[:dealer_hand][0][1] + "\n" %></p>
+    <p>******* of ********</p>
+  <% else %>
+    <% session[:dealer_hand].each do |card| %>
+      <p><%= card[0] + " of " + card[1] + "\n" %></p>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="well">
+  <h4>your hand:</h4>
+  <% session[:player_hand].each do |card| %>
+    <p><%= card[0] + " of " + card[1] + "\n" %></p>
+  <% end %>
+</div>
+
+
 
 <% if session[:player_turn] %>
-  <form action="/hit" method="post">
+  <p>You have <%= countCards(session[:player_hand]) %> points. What would you like to do? </p>
+  <form id="hit_form" action="/hit" method="post">
     <fieldset>
-      <button type="submit" class="btn">hit</button>
+      <button type="submit" class="btn btn-success">hit</button>
     </fieldset>
   </form>
-  <form action="/stay" method="post">
+  <form id="stay_form" action="/stay" method="post">
     <fieldset>
-      <button type="submit" class="btn">stay</button>
+      <button type="submit" class="btn btn-warning">stay</button>
     </fieldset>
   </form>
-<% end %>
-
-
-<h3>Here is the dealer's hand:</h3>
-<% session[:dealer_hand].each do |card| %>
-  <%= card[0] + " of " + card[1] + "\n" %>
 <% end %>
 
 <% if !session[:player_turn] && !session[:game_over] %>
   <form action="/hit_dealer" method="post">
     <fieldset>
-      <button type="submit" class="btn">hit</button>
+      <button type="submit" class="btn">dealer plays</button>
     </fieldset>
   </form>
 <% end %>
