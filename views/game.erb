@@ -4,8 +4,8 @@
 <div class="well extend">
   <h4>dealer's hand:</h4>
   <% if session[:player_turn] %>
-    <%= getImage(session[:dealer_hand][0]) %>
-    <img src="/images/cards/cover.jpg" />
+    <div class="card"><%= getImage(session[:dealer_hand][0]) %></div>
+    <div class="card"><img src="/images/cards/cover.jpg" /></div>
   <% else %>
     <% session[:dealer_hand].each do |card| %>
       <div class="card"><%= getImage(card) %></div>

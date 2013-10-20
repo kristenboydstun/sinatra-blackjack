@@ -64,7 +64,7 @@ get '/initialize' do
 
   session[:game_over] = false
   session[:player_turn] = true
-  redirect '/game'
+  erb :game
 end
 
 get '/game' do
@@ -73,18 +73,26 @@ end
 
 post '/hit' do
   session[:player_hand]<<session[:deck].pop
-  session[:player_turn] = false unless countCards(session[:player_hand]) < 21
-  redirect('/game')
+
+  if countCards(session[:player_hand]) == 21
+    @success = "Blackjack!"
+  elsif countCards(session[:player_hand]) > 21
+    session[:player_turn] = false
+    @error = "Over 21! Game over. You lost."
+    session[:game_over] = true
+  end
+
+  erb :game
 end
 
 post '/stay' do
   # deal cards for dealer
   session[:player_turn] = false
-  redirect '/game'
+  erb :game
 end
 
 post '/hit_dealer' do
   session[:dealer_hand]<<session[:deck].pop
   session[:game_over] = true unless countCards(session[:dealer_hand]) < 17
-  redirect '/game'
+  erb :game
 end
