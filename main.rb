@@ -56,7 +56,7 @@ get '/' do
 end
 
 get '/new_player' do
-  session[:bet] = 500
+  session[:total] = 500
   erb :new_player
 end
 
@@ -71,8 +71,7 @@ post '/new_player' do
 end
 
 post '/bet' do
-  session[:bet] -= params[:player_bet].to_f
-  puts session[:bet]
+  session[:bet] = params[:player_bet].to_f
   redirect '/initialize'
 end
 
