@@ -26,6 +26,20 @@ helpers do
   def getImage card
     "<img src='/images/cards/#{card[1]}_#{card[0]}.jpg'>"
   end
+
+  def determineWinner
+    player_score = countCards(session[:player_hand])
+    dealer_score = countCards(session[:dealer_hand])
+    if player_score > 21 && dealer_score > 21
+      @error = "Tie. Game over."
+    elsif player_score > 21
+      @error = "Dealer won. Game over."
+    elsif dealer_score > 21
+      @success = "You won! Game over."
+    else
+      player_score > dealer_score ? (@success = "You won!") : (@error = "You lost..")
+    end
+  end
 end
 
 
@@ -93,6 +107,11 @@ end
 
 post '/hit_dealer' do
   session[:dealer_hand]<<session[:deck].pop
-  session[:game_over] = true unless countCards(session[:dealer_hand]) < 17
+
+  if countCards(session[:dealer_hand]) >= 17
+    session[:game_over] = true
+    determineWinner
+  end
+
   erb :game
 end

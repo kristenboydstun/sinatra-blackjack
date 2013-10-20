@@ -2,7 +2,14 @@
 
 
 <div class="well extend">
-  <h4>dealer's hand:</h4>
+  <h4>
+    dealer's hand: 
+    <% if session[:game_over] %>
+      <span class="badge badge-inverse">
+        <%= countCards(session[:dealer_hand]) %>
+      </span>
+    <% end %>
+  </h4>
   <% if session[:player_turn] %>
     <div class="card"><%= getImage(session[:dealer_hand][0]) %></div>
     <div class="card"><img src="/images/cards/cover.jpg" /></div>
@@ -14,7 +21,12 @@
 </div>
 
 <div class="well clear extend">
-  <h4>your hand:</h4>
+  <h4>
+    player's hand: 
+    <span class="badge badge-inverse">
+      <%= countCards(session[:player_hand]) %>
+    </span>
+  </h4>
   <% session[:player_hand].each do |card| %>
     <div class="card"><%= getImage(card) %></div>
   <% end %>
@@ -23,7 +35,7 @@
 
 
 <% if session[:player_turn] %>
-  <p>You have <%= countCards(session[:player_hand]) %> points. What would you like to do? </p>
+  <p> What would you like to do? </p>
   <form id="hit_form" action="/hit" method="post">
     <fieldset>
       <button type="submit" class="btn btn-success">hit</button>
