@@ -30,15 +30,24 @@ helpers do
   def determineWinner
     player_score = countCards(session[:player_hand])
     dealer_score = countCards(session[:dealer_hand])
+    puts "Determining winner..."
     if player_score > 21 && dealer_score > 21
+      puts "Tie. Game over."
       @error = "Tie. Game over."
     elsif player_score > 21
+      puts "Dealer won. Game over."
       @error = "Dealer won. Game over."
     elsif dealer_score > 21
+      puts "You won! Game over."
       @success = "You won! Game over."
+    elsif player_score == dealer_score
+      puts "Tie. Game over. Bets returned."
+      @error = "Tie. Game over. Bets returned."
     else
+      puts "Not a tie. Somebody should win here..."
       player_score > dealer_score ? (@success = "You won!") : (@error = "You lost..")
     end
+    erb :game
   end
 end
 
@@ -57,6 +66,10 @@ get '/new_player' do
 end
 
 post '/new_player' do
+  if params[:player_name].empty?
+    @error = "Please enter a name"
+    halt erb(:new_player)
+  end
   session[:player_name]=params[:player_name]
   redirect '/initialize'
 end
@@ -92,26 +105,31 @@ post '/hit' do
     @success = "Blackjack!"
   elsif countCards(session[:player_hand]) > 21
     session[:player_turn] = false
-    @error = "Over 21! Game over. You lost."
-    session[:game_over] = true
   end
 
   erb :game
 end
 
 post '/stay' do
-  # deal cards for dealer
   session[:player_turn] = false
+  redirect '/game/over' if countCards(session[:dealer_hand]) > 16
+  @display_hit_dealer = true
   erb :game
 end
 
 post '/hit_dealer' do
   session[:dealer_hand]<<session[:deck].pop
-
-  if countCards(session[:dealer_hand]) >= 17
-    session[:game_over] = true
-    determineWinner
-  end
-
+  redirect '/game/over' if countCards(session[:dealer_hand]) > 16
+  @display_hit_dealer = true
   erb :game
 end
+
+get '/game/over' do
+  determineWinner
+  erb :game
+end
+
+
+
+
+

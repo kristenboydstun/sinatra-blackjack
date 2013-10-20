@@ -4,7 +4,7 @@
 <div class="well extend">
   <h4>
     dealer's hand: 
-    <% if session[:game_over] %>
+    <% if !session[:player_turn] %>
       <span class="badge badge-inverse">
         <%= countCards(session[:dealer_hand]) %>
       </span>
@@ -48,10 +48,10 @@
   </form>
 <% end %>
 
-<% if !session[:player_turn] && !session[:game_over] %>
+<% if @display_hit_dealer %>
   <form action="/hit_dealer" method="post">
     <fieldset>
-      <button type="submit" class="btn">dealer plays</button>
+      <button type="submit" class="btn">hit dealer</button>
     </fieldset>
   </form>
 <% end %>
