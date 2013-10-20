@@ -56,6 +56,7 @@ get '/' do
 end
 
 get '/new_player' do
+  session[:bet] = 500
   erb :new_player
 end
 
@@ -65,6 +66,13 @@ post '/new_player' do
     halt erb(:new_player)
   end
   session[:player_name]=params[:player_name]
+  erb :bet
+  #redirect '/initialize'
+end
+
+post '/bet' do
+  session[:bet] -= params[:player_bet].to_f
+  puts session[:bet]
   redirect '/initialize'
 end
 
