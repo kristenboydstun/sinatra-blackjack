@@ -1,22 +1,22 @@
-<h2><%= "Dealer vs " + session[:player_name] %></h2>
+<h2><%= "DEALER vs " + session[:player_name].upcase %></h2>
 
 
-<div class="well">
+<div class="well extend">
   <h4>dealer's hand:</h4>
   <% if session[:player_turn] %>
-    <p><%= session[:dealer_hand][0][0] + " of " + session[:dealer_hand][0][1] + "\n" %></p>
-    <p>******* of ********</p>
+    <%= getImage(session[:dealer_hand][0]) %>
+    <img src="/images/cards/cover.jpg" />
   <% else %>
     <% session[:dealer_hand].each do |card| %>
-      <p><%= card[0] + " of " + card[1] + "\n" %></p>
+      <div class="card"><%= getImage(card) %></div>
     <% end %>
   <% end %>
 </div>
 
-<div class="well">
+<div class="well clear extend">
   <h4>your hand:</h4>
   <% session[:player_hand].each do |card| %>
-    <p><%= card[0] + " of " + card[1] + "\n" %></p>
+    <div class="card"><%= getImage(card) %></div>
   <% end %>
 </div>
 

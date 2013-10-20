@@ -11,3 +11,17 @@ form#hit_form {
 form#stay_form {
 	float:left;
 }
+
+.card {
+	margin-right:10px;
+	float:left;
+}
+
+div.clear {
+	clear:both;
+}
+
+div.extend {
+	overflow: auto;
+	width: 100%
+}
