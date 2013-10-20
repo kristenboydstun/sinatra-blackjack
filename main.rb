@@ -30,21 +30,15 @@ helpers do
   def determineWinner
     player_score = countCards(session[:player_hand])
     dealer_score = countCards(session[:dealer_hand])
-    puts "Determining winner..."
     if player_score > 21 && dealer_score > 21
-      puts "Tie. Game over."
       @error = "Tie. Game over."
     elsif player_score > 21
-      puts "Dealer won. Game over."
       @error = "Dealer won. Game over."
     elsif dealer_score > 21
-      puts "You won! Game over."
       @success = "You won! Game over."
     elsif player_score == dealer_score
-      puts "Tie. Game over. Bets returned."
       @error = "Tie. Game over. Bets returned."
     else
-      puts "Not a tie. Somebody should win here..."
       player_score > dealer_score ? (@success = "You won!") : (@error = "You lost..")
     end
     erb :game
@@ -89,8 +83,7 @@ get '/initialize' do
 
   getImage(session[:deck].pop)
 
-  session[:game_over] = false
-  session[:player_turn] = true
+  @display_hit_or_stay = true
   erb :game
 end
 
@@ -103,8 +96,12 @@ post '/hit' do
 
   if countCards(session[:player_hand]) == 21
     @success = "Blackjack!"
-  elsif countCards(session[:player_hand]) > 21
-    session[:player_turn] = false
+    @display_hit_dealer = true if countCards(session[:dealer_hand]) < 16
+  elsif countCards(session[:player_hand]) < 21
+    @display_hit_or_stay = true
+  else
+    # dealer's turn if under 17
+    @display_hit_dealer = true if countCards(session[:dealer_hand]) < 16
   end
 
   erb :game

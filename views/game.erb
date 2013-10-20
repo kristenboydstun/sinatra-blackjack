@@ -4,13 +4,13 @@
 <div class="well extend">
   <h4>
     dealer's hand: 
-    <% if !session[:player_turn] %>
+    <% if !@display_hit_or_stay %>
       <span class="badge badge-inverse">
         <%= countCards(session[:dealer_hand]) %>
       </span>
     <% end %>
   </h4>
-  <% if session[:player_turn] %>
+  <% if @display_hit_or_stay %>
     <div class="card"><%= getImage(session[:dealer_hand][0]) %></div>
     <div class="card"><img src="/images/cards/cover.jpg" /></div>
   <% else %>
@@ -34,7 +34,7 @@
 
 
 
-<% if session[:player_turn] %>
+<% if @display_hit_or_stay %>
   <p> What would you like to do? </p>
   <form id="hit_form" action="/hit" method="post">
     <fieldset>
