@@ -117,10 +117,7 @@ end
 post '/hit' do
   session[:player_hand]<<session[:deck].pop
 
-  if countCards(session[:player_hand]) == 21
-    @success = "Blackjack!"
-    @display_hit_dealer = true if countCards(session[:dealer_hand]) < 16
-  elsif countCards(session[:player_hand]) < 21
+  if countCards(session[:player_hand]) < 21
     @display_hit_or_stay = true
   else
     # dealer's turn if under 17, else game over
@@ -150,7 +147,7 @@ end
 
 get '/game/over' do
   determineWinner
-  @out_of_money = true if session[:total].to_f == 0.0
+  redirect '/end' if session[:total].to_f == 0.0
   @game_over = true
   erb :game
 end

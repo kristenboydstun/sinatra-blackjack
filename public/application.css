@@ -3,7 +3,7 @@ body {
 	font-family:Cabin,sans-serif;
 }
 
-form#hit_form {
+form {
 	float:left;
 	margin-right:10px;
 }
@@ -18,7 +18,7 @@ form#stay_form {
 	width:90px;
 }
 
-div.clear {
+.clear {
 	clear:both;
 }
 
