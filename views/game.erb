@@ -1,6 +1,24 @@
-<h2><%= "DEALER vs " + session[:player_name].upcase %></h2>
+<% if @game_over %>
+  <h3> Play again? </h3>
 
-<h6> you have <%= session[:total] %>$ and bet <%= session[:bet] %> this round. </h6>
+  <form action="/initialize" method="get">
+    <fieldset>
+      <button type="submit" class="btn btn-success">yes</button>
+    </fieldset>
+  </form>
+  <form action="/end" method="get">
+    <fieldset>
+      <button type="submit" class="btn btn-warning">no</button>
+    </fieldset>
+  </form>
+
+  <h6> you now have <%= session[:total] %>$ </h6>
+<% else %>
+  <h2><%= "DEALER vs " + session[:player_name].upcase %></h2>
+  <h6> you have <%= session[:total] %>$ and bet <%= session[:bet] %> this round. </h6>
+<% end %>
+
+
 
 <div class="well extend">
   <h4>
