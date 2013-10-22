@@ -73,7 +73,10 @@ post '/new_player' do
   end
   session[:player_name]=params[:player_name]
   erb :bet
-  #redirect '/initialize'
+end
+
+get '/bet' do
+  erb :bet
 end
 
 post '/bet' do
@@ -120,8 +123,12 @@ post '/hit' do
   elsif countCards(session[:player_hand]) < 21
     @display_hit_or_stay = true
   else
-    # dealer's turn if under 17
-    @display_hit_dealer = true if countCards(session[:dealer_hand]) < 16
+    # dealer's turn if under 17, else game over
+    if countCards(session[:dealer_hand]) < 17
+      @display_hit_dealer = true
+    else
+      redirect '/game/over'
+    end
   end
 
   erb :game
@@ -143,11 +150,14 @@ end
 
 get '/game/over' do
   determineWinner
+  @out_of_money = true if session[:total].to_f == 0.0
   @game_over = true
   erb :game
 end
 
-
+get '/end' do
+  erb :end
+end
 
 
 
