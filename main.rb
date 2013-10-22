@@ -77,6 +77,13 @@ post '/new_player' do
 end
 
 post '/bet' do
+  if params[:player_bet].empty? || params[:player_bet].to_f == 0.0
+    @error = "Please enter a valid bet"
+    halt erb(:bet)
+  elsif params[:player_bet].to_f > session[:total].to_f
+    @error = "You can't bet more than you have!"
+    halt erb(:bet)
+  end
   session[:bet] = params[:player_bet].to_f
   redirect '/initialize'
 end
