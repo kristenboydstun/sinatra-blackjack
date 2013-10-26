@@ -1,76 +1,78 @@
-<% if @game_over %>
-  <h3> Play again? </h3>
+<div id="game">
+  <% if @game_over %>
+    <h3> Play again? </h3>
 
-  <form action="/bet" method="get">
-    <fieldset>
-      <button type="submit" class="btn btn-success">yes</button>
-    </fieldset>
-  </form>
-  <form action="/end" method="get">
-    <fieldset>
-      <button type="submit" class="btn btn-warning">no</button>
-    </fieldset>
-  </form>
+    <form action="/bet" method="get">
+      <fieldset>
+        <button type="submit" class="btn btn-success">yes</button>
+      </fieldset>
+    </form>
+    <form action="/end" method="get">
+      <fieldset>
+        <button type="submit" class="btn btn-warning">no</button>
+      </fieldset>
+    </form>
 
-  <h6 class="clear"> you now have <%= session[:total] %>$ </h6>
-<% else %>
-  <h2><%= "DEALER vs " + session[:player_name].upcase %></h2>
-  <h6> you have <%= session[:total] %>$ and bet <%= session[:bet] %> this round. </h6>
-<% end %>
-
-
-
-<div class="well extend">
-  <h4>
-    dealer's hand: 
-    <% if !@display_hit_or_stay %>
-      <span class="badge badge-inverse">
-        <%= countCards(session[:dealer_hand]) %>
-      </span>
-    <% end %>
-  </h4>
-  <% if @display_hit_or_stay %>
-    <div class="card"><%= getImage(session[:dealer_hand][0]) %></div>
-    <div class="card"><img src="/images/cards/cover.jpg" /></div>
+    <h6 class="clear"> you now have <%= session[:total] %>$ </h6>
   <% else %>
-    <% session[:dealer_hand].each do |card| %>
+    <h2><%= "DEALER vs " + session[:player_name].upcase %></h2>
+    <h6> you have <%= session[:total] %>$ and bet <%= session[:bet] %> this round. </h6>
+  <% end %>
+
+
+
+  <div class="well extend">
+    <h4>
+      dealer's hand: 
+      <% if !@display_hit_or_stay %>
+        <span class="badge badge-inverse">
+          <%= countCards(session[:dealer_hand]) %>
+        </span>
+      <% end %>
+    </h4>
+    <% if @display_hit_or_stay %>
+      <div class="card"><%= getImage(session[:dealer_hand][0]) %></div>
+      <div class="card"><img src="/images/cards/cover.jpg" /></div>
+    <% else %>
+      <% session[:dealer_hand].each do |card| %>
+        <div class="card"><%= getImage(card) %></div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="well clear extend" id="player_cards">
+    <h4>
+      player's hand: 
+      <span class="badge badge-inverse">
+        <%= countCards(session[:player_hand]) %>
+      </span>
+    </h4>
+    <% session[:player_hand].each do |card| %>
       <div class="card"><%= getImage(card) %></div>
     <% end %>
+  </div>
+
+
+
+  <% if @display_hit_or_stay %>
+    <p> What would you like to do? </p>
+    <form id="hit_form" action="/hit" method="post">
+      <fieldset>
+        <button type="submit" class="btn btn-success">hit</button>
+      </fieldset>
+    </form>
+    <form id="stay_form" action="/stay" method="post">
+      <fieldset>
+        <button type="submit" class="btn btn-warning">stay</button>
+      </fieldset>
+    </form>
+  <% end %>
+
+  <% if @display_hit_dealer %>
+    <form action="/hit_dealer" method="post">
+      <fieldset>
+        <button type="submit" class="btn">hit dealer</button>
+      </fieldset>
+    </form>
   <% end %>
 </div>
-
-<div class="well clear extend">
-  <h4>
-    player's hand: 
-    <span class="badge badge-inverse">
-      <%= countCards(session[:player_hand]) %>
-    </span>
-  </h4>
-  <% session[:player_hand].each do |card| %>
-    <div class="card"><%= getImage(card) %></div>
-  <% end %>
-</div>
-
-
-
-<% if @display_hit_or_stay %>
-  <p> What would you like to do? </p>
-  <form id="hit_form" action="/hit" method="post">
-    <fieldset>
-      <button type="submit" class="btn btn-success">hit</button>
-    </fieldset>
-  </form>
-  <form id="stay_form" action="/stay" method="post">
-    <fieldset>
-      <button type="submit" class="btn btn-warning">stay</button>
-    </fieldset>
-  </form>
-<% end %>
-
-<% if @display_hit_dealer %>
-  <form action="/hit_dealer" method="post">
-    <fieldset>
-      <button type="submit" class="btn">hit dealer</button>
-    </fieldset>
-  </form>
-<% end %>

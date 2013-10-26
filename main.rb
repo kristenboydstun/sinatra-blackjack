@@ -128,7 +128,7 @@ post '/hit' do
     end
   end
 
-  erb :game
+  erb :game, layout: false
 end
 
 post '/stay' do
