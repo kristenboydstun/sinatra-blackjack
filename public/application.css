@@ -37,8 +37,8 @@ div.extend {
 
 .center_me {
 	text-align:center;
-	margin-left:35%;
-	margin-right:35%;
+	margin-left:30%;
+	margin-right:30%;
 }
 
 #game {
@@ -70,4 +70,8 @@ li.pull-right a {
 
 .bets:hover {
 	color:green;
+}
+
+.bet_input {
+	margin-right:10px;
 }

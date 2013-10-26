@@ -1,10 +1,16 @@
-<div class="center_me">
+<div class="">
 	<h2> how much do you want to bet? </h2>
 	<h3> you have $<%= session[:total] %> </h3>
-	<form action="/bet" method="post">
+	<form class="form-inline" action="/bet" method="post">
 	  <fieldset>
-	    <input type="text" name="player_bet" placeholder="100">
-	    <button type="submit" class="btn">Submit</button>
+
+
+	  	<div class="input-prepend input-append bet_input">
+		  <span class="add-on">$</span>
+		  <input class="input-small" type="text" name="player_bet" placeholder="100">
+		  <span class="add-on">.00</span>
+		</div>
+	    <button type="submit" class="btn btn-success"><i class="icon-play"></i> start </button>
 	  </fieldset>
 	</form>
 </div>
