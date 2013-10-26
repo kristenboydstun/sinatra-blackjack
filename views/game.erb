@@ -1,4 +1,12 @@
 <div id="game">
+
+  <%if @error %>
+   <div class="alert alert-error"><%=@error%></div>
+  <% end %>
+  <%if @success %>
+    <div class="alert alert-success"><%=@success%></div>
+  <% end %>
+
   <% if @game_over %>
     <h3> Play again? </h3>
 

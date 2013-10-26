@@ -135,14 +135,14 @@ post '/stay' do
   session[:player_turn] = false
   redirect '/game/over' if countCards(session[:dealer_hand]) > 16
   @display_hit_dealer = true
-  erb :game
+  erb :game, layout: false
 end
 
 post '/hit_dealer' do
   session[:dealer_hand]<<session[:deck].pop
   redirect '/game/over' if countCards(session[:dealer_hand]) > 16
   @display_hit_dealer = true
-  erb :game
+  erb :game, layout: false
 end
 
 get '/game/over' do
