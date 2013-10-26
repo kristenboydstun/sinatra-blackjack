@@ -53,3 +53,21 @@ div.extend {
 .active_well {
 	background-color: #c1dbae;
 }
+
+ul {
+	list-style-type: none;
+}
+
+.bets {
+	margin-top:12px;
+	margin-right:30px;
+	text-decoration: none;
+}
+
+li.pull-right a {
+	color: #AAA;
+}
+
+.bets:hover {
+	color:green;
+}

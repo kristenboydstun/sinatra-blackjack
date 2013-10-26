@@ -15,9 +15,10 @@
         <div class="container">
             <ul class="nav">
               <li><a href="/new_player">start over</a></li>
-              <li><a href="/">play again</a></li>
-              <li><a>total: $<%= session[:total] %></a></li>
-              <li><a>bet: $<%= session[:bet] %></a></li>
+            </ul>
+            <ul>
+              <li class="pull-right"><a>total: <span class="bets label label-success">$<%= session[:total] %></span></a></li>
+              <li class="pull-right"><a>bet: <span class="bets label label-warning">$<%= session[:bet] %></span></a></li>
             </ul>
         </div>
       </div>

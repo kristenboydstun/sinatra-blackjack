@@ -63,6 +63,7 @@ end
 
 get '/new_player' do
   session[:total] = 500
+  session[:bet] = 0
   erb :new_player
 end
 
