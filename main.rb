@@ -31,19 +31,19 @@ helpers do
     player_score = countCards(session[:player_hand])
     dealer_score = countCards(session[:dealer_hand])
     if (player_score > 21 && dealer_score > 21) || (player_score == dealer_score)
-      @loser = "Tie. Game over."
+      @loser = "Tie. Bets returned."
     elsif player_score > 21
       session[:total] -= session[:bet].to_i
-      @loser = "Dealer won. Game over."
+      @loser = "Dealer won."
     elsif dealer_score > 21
       session[:total] += session[:bet].to_i
-      @winner = "You won! Game over."
+      @winner = "You won!"
     else
       if player_score > dealer_score
-        session[:total] += session[:bet]
+        session[:total] += session[:bet].to_i
         @winner = "You won!"
       else
-        session[:total] -= session[:bet]
+        session[:total] -= session[:bet].to_i
         @loser = "You lost.."
       end
     end
@@ -106,7 +106,17 @@ get '/initialize' do
 
   getImage(session[:deck].pop)
 
-  @display_hit_or_stay = true
+  if countCards(session[:player_hand]) < 21
+    @display_hit_or_stay = true
+  else
+    # dealer's turn if under 17, else game over
+    if countCards(session[:dealer_hand]) < 17
+      @display_hit_dealer = true
+    else
+      redirect '/game/over'
+    end
+  end
+  
   erb :game
 end
 

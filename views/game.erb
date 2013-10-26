@@ -1,12 +1,5 @@
 <div id="game">
 
-  <%if @loser %>
-   <div class="alert alert-error"><%=@loser%></div>
-  <% end %>
-  <%if @winner %>
-    <div class="alert alert-success"><%=@winner%></div>
-  <% end %>
-
   <div class="row">
     <div class="span6">
       <div class="well extend">
@@ -54,7 +47,7 @@
         <% end %>
       </div>
       <% if @display_hit_or_stay %>
-        <h4> What would you like to do? </h4>
+        <h4> what would you like to do? </h4>
         <form id="hit_form" action="/hit" method="post">
           <fieldset>
             <button type="submit" class="btn btn-success">hit</button>
@@ -66,8 +59,17 @@
           </fieldset>
         </form>
       <% end %>
+    </div>
+  </div>
 
-      <div class="clear">
+  <%if @loser %>
+   <div class="alert alert-error"><%=@loser%></div>
+  <% end %>
+  <%if @winner %>
+    <div class="alert alert-success"><%=@winner%></div>
+  <% end %>
+  
+  <div class="clear">
       <% if @game_over %>
         <h3> Play again? </h3>
 
@@ -85,9 +87,5 @@
         <h6 class="clear"> you now have <%= session[:total] %>$ </h6>
       <% end %>
     </div>
-    </div>
-  </div>
-
-  
 
 </div>
