@@ -116,7 +116,7 @@ get '/initialize' do
       redirect '/game/over'
     end
   end
-  
+
   erb :game
 end
 
@@ -157,13 +157,12 @@ end
 
 get '/game/over' do
   determineWinner
-  redirect '/end' if session[:total].to_f == 0.0
-  @game_over = true
+  if session[:total].to_f == 0.0
+    @loser = "You bet everything you had and lost! The game is over."
+  else
+    @game_over = true
+  end
   erb :game
-end
-
-get '/end' do
-  erb :end
 end
 
 

@@ -16,6 +16,10 @@ form#stay_form {
 	margin-right:10px;
 	float:left;
 	width:100px;
+}
+
+img {
+	border-radius:5px;
 	box-shadow:-2px 2px 5px #888888;
 }
 
@@ -35,4 +39,17 @@ div.extend {
 	text-align:center;
 	margin-left:35%;
 	margin-right:35%;
+}
+
+#game {
+	margin-top:30px;
+}
+
+.persons_hand {
+	margin-bottom:30px;
+	text-align:center;
+}
+
+.active_well {
+	background-color: #c1dbae;
 }
