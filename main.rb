@@ -157,8 +157,8 @@ end
 
 get '/game/over' do
   determineWinner
-  if session[:total].to_f == 0.0
-    @loser = "You bet everything you had and lost! The game is over."
+  if session[:total].to_f <= 0.0
+    @loser = "You bet everything and lost! The game is over."
   else
     @game_over = true
   end
