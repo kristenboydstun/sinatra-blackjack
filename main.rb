@@ -33,10 +33,10 @@ helpers do
     if (player_score > 21 && dealer_score > 21) || (player_score == dealer_score)
       @loser = "Tie. Game over."
     elsif player_score > 21
-      session[:total] -= session[:bet]
+      session[:total] -= session[:bet].to_i
       @loser = "Dealer won. Game over."
     elsif dealer_score > 21
-      session[:total] += session[:bet]
+      session[:total] += session[:bet].to_i
       @winner = "You won! Game over."
     else
       if player_score > dealer_score
@@ -87,7 +87,7 @@ post '/bet' do
     @error = "You can't bet more than you have!"
     halt erb(:bet)
   end
-  session[:bet] = params[:player_bet].to_f
+  session[:bet] = params[:player_bet]
   redirect '/initialize'
 end
 

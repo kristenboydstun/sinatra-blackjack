@@ -54,7 +54,7 @@
         <% end %>
       </div>
       <% if @display_hit_or_stay %>
-        <p> What would you like to do? </p>
+        <h4> What would you like to do? </h4>
         <form id="hit_form" action="/hit" method="post">
           <fieldset>
             <button type="submit" class="btn btn-success">hit</button>
@@ -83,8 +83,6 @@
         </form>
 
         <h6 class="clear"> you now have <%= session[:total] %>$ </h6>
-      <% else %>
-        <h6> you have <%= session[:total] %>$ and bet <%= session[:bet] %> this round. </h6>
       <% end %>
     </div>
     </div>
