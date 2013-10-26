@@ -15,7 +15,12 @@ form#stay_form {
 .card {
 	margin-right:10px;
 	float:left;
-	width:90px;
+	width:100px;
+	box-shadow:-2px 2px 5px #888888;
+}
+
+.overlap {
+	margin-right:-50px;
 }
 
 .clear {
@@ -23,6 +28,11 @@ form#stay_form {
 }
 
 div.extend {
-	overflow: auto;
-	width: 100%
+	overflow: auto
+}
+
+.center_me {
+	text-align:center;
+	margin-left:35%;
+	margin-right:35%;
 }

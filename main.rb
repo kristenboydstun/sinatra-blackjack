@@ -31,20 +31,20 @@ helpers do
     player_score = countCards(session[:player_hand])
     dealer_score = countCards(session[:dealer_hand])
     if (player_score > 21 && dealer_score > 21) || (player_score == dealer_score)
-      @error = "Tie. Game over."
+      @loser = "Tie. Game over."
     elsif player_score > 21
       session[:total] -= session[:bet]
-      @error = "Dealer won. Game over."
+      @loser = "Dealer won. Game over."
     elsif dealer_score > 21
       session[:total] += session[:bet]
-      @success = "You won! Game over."
+      @winner = "You won! Game over."
     else
       if player_score > dealer_score
         session[:total] += session[:bet]
-        @success = "You won!"
+        @winner = "You won!"
       else
         session[:total] -= session[:bet]
-        @error = "You lost.."
+        @loser = "You lost.."
       end
     end
     erb :game

@@ -1,9 +1,10 @@
-<h2> how much do you want to bet? </h2>
-<h3> you have <%= session[:total] %> </h3>
-<form action="/bet" method="post">
-  <fieldset>
-    <legend>bet?</legend>
-    <input type="text" name="player_bet" placeholder="15">
-    <button type="submit" class="btn">Submit</button>
-  </fieldset>
-</form>
+<div class="center_me">
+	<h2> how much do you want to bet? </h2>
+	<h3> you have <%= session[:total] %> </h3>
+	<form action="/bet" method="post">
+	  <fieldset>
+	    <input type="text" name="player_bet" placeholder="100">
+	    <button type="submit" class="btn">Submit</button>
+	  </fieldset>
+	</form>
+</div>
